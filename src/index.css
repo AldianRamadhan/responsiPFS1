@@ -1,0 +1,219 @@
+/* ==========================================================
+   1. VARIABEL CSS (Skema Warna Kustom)
+   ========================================================== */
+:root {
+  --color-primary: #4f46e5;
+  --color-primary-dark: #4338ca;
+  --color-sidebar: #1e1b4b;
+  --color-sidebar-hover: rgba(255, 255, 255, 0.1);
+  --color-bg: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-text: #0f172a;
+  --color-muted: #64748b;
+  --sidebar-width: 260px;
+  --transition-speed: 0.25s;
+  --shadow-hover: 0 0.5rem 1rem rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================
+   2. RESET & BASE
+   ========================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Override warna primary Bootstrap agar sesuai skema kustom */
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+/* ==========================================================
+   3. LAYOUT UTAMA
+   ========================================================== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  padding: 1.25rem 1rem 2rem;
+}
+
+@media (min-width: 768px) {
+  .content-area {
+    padding: 1.5rem 1.75rem 2.5rem;
+  }
+}
+
+/* ==========================================================
+   4. NAVBAR
+   ========================================================== */
+.navbar-custom {
+  background-color: var(--color-surface);
+  z-index: 1020;
+}
+
+/* ==========================================================
+   5. SIDEBAR (transisi slide + responsif)
+   ========================================================== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  padding: 1.25rem 1rem;
+  background-color: var(--color-sidebar);
+  color: #e0e7ff;
+  overflow-y: auto;
+  z-index: 1040;
+  transform: translateX(-100%);
+  transition: transform var(--transition-speed) ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-link {
+  display: block;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  color: #c7d2fe;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-sidebar-hover);
+  color: #ffffff;
+  padding-left: 1.2rem;
+}
+
+.sidebar-link.active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Overlay gelap untuk sidebar mobile (animasi fade dikontrol jQuery) */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.5);
+  z-index: 1030;
+}
+
+/* Desktop (≥ 992px): sidebar tampil permanen di samping konten */
+@media (min-width: 992px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    transform: none;
+  }
+
+  .sidebar-overlay {
+    display: none !important;
+  }
+}
+
+/* ==========================================================
+   6. KARTU STATISTIK & HOVER EFFECT
+   ========================================================== */
+.stat-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover) !important;
+}
+
+.btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.table-hover > tbody > tr {
+  transition: background-color 0.2s ease;
+}
+
+/* ==========================================================
+   7. MODAL CUSTOM (dikontrol React + animasi jQuery)
+   ========================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(15, 23, 42, 0.55);
+  z-index: 1050;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background-color: var(--color-surface);
+  border-radius: 1rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 575.98px) {
+  .modal-box {
+    padding: 1.1rem;
+  }
+}
+
+/* ==========================================================
+   8. RESPONSIVE TABEL
+   ========================================================== */
+@media (max-width: 575.98px) {
+  .table {
+    font-size: 0.90rem;
+  }
+
+  .table td,
+  .table th {
+    padding: 0.6rem 0.5rem;
+  }
+}
